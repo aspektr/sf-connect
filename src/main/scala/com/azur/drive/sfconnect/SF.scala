@@ -82,8 +82,8 @@ final case class SF(url:String = "https://login.salesforce.com/services/oauth2/t
    * @param predicate condition to filter
    * @return soql query for salesforce
    */
-  def soql(obj:String, predicate: String = ""): Either[ParsingFailure, String] = for {
-      schemaObj <- this.describe(obj)
+  def soql(obj:String, predicate: String = "", sfUrl: String = "https://finsys.my.salesforce.com/"): Either[ParsingFailure, String] = for {
+      schemaObj <- this.describe(obj, sfUrl)
       keys      = schemaObj.keys.mkString(",").replace(""""""", "")
       soql      = s"select $keys from $obj" + " " + predicate
   } yield soql

@@ -82,7 +82,7 @@ def prodData(soql:String) = sparkSession.read.format("com.springml.spark.salesfo
     option("chunkSize", chunkSize).
     option("queryAll", queryAll)
 
-val df = sfInstance.soql(sfObject, predicate) match {
+val df = sfInstance.soql(sfObject, predicate, "https://company-name.my.salesforce.com/") match {
     case Right(soql) => prodData(soql).load()
     case Left(_) => sparkSession.createDataFrame(List())
 }
@@ -121,7 +121,7 @@ def changeColType(cols: List[String],
                       )       
     }
 
-val dfChangedTypes = sfInstance.describe(sfObject) match {
+val dfChangedTypes = sfInstance.describe(sfObject, sfUrl) match {
     case Right(objMetadata) => changeColType(df.columns.toList.filter(!_.contains(".")), objMetadata, df)
     case Left(_) => sparkSession.emptyDataFrame
 }

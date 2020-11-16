@@ -1,6 +1,6 @@
 name := "sf-connect"
 organization := "azurdrive"
-version := "0.1"
+version := "0.2"
 
 scalaVersion := "2.11.12"
 
@@ -18,4 +18,4 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser"
 ).map(_ % circeVersion)
 
-assemblyJarName in assembly := "sf-connect.jar"
+assemblyJarName in assembly := "sf-connect-2.jar"
